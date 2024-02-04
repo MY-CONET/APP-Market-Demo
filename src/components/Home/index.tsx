@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Button } from 'antd';
 import logo from '../../logo.svg';
 
+import { callback } from '../../PlatformAPI/call';
+
 const Start: React.FC = () => {
 
 
@@ -26,8 +28,22 @@ const Start: React.FC = () => {
         <Button
           type="primary"
           onClick={() => {
+            callback('getUser').then(res => {
+              console.log('子页面得到数据:res', res)
+            })
+          }}>获取数据</Button>
+        <Button
+          type="primary"
+          onClick={() => {
+            callback('getSystemConfig', {}).then(res => {
+              console.log('子页面得到数据:res', res)
+            })
+          }}>获取系统配置</Button>
+        <Button
+          type="primary"
+          onClick={() => {
             window.parent.postMessage({
-              type: 'loginUserChange_Callback',
+              name: 'loginUserChange_Callback',
               data: {
                 name: 'APP2',
               },
